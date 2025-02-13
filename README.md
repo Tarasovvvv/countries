@@ -1,50 +1,28 @@
-# React + TypeScript + Vite
+# Задание
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Разработать приложения для отображения и взаимодействия со списком стран.
 
-Currently, two official plugins are available:
+1. Выполнить запрос для получения всех стран и отобразить их
+2. В полученном списке страна отображается в виде карточки. Карточка состоит из изображения флага (svg/png на ваше усмотрение) и названия
+3. Добавить возможность фильтрации стран по региону
+4. Добавить возможность сортировки стран по населению
+5. Реализовать поиск по названию
+6. При нажатии на карточку страны открывается детальная информация, где должен отображаться список стран с общей границей. При нажатии на одну из стран из списка детальная информация должна обновится. (эндпоинт `CODE, alpha/{code}`)
+7. Реализовать возможность смены языка (англ., рус. )
+8. При смене языка изменяется язык интерфейса и название страны (использовать `name.official` для английского и `translations.rus.official` для русского). Предусмотреть fallback при отсутствии перевода
+9. Предусмотреть сохранение выбранных параметров при перезагрузке страницы
+10. Стилизация полностью на ваше усмотрение с использованием scss-модулей (без использования библиотек компонентов)
+11. Приложение должно быть адаптивным и поддерживать мобильные устройства
+12. При разработке использовать FSD архитектуру.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Обязательный стек технологий:
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
-
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
-
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+- Core: React и TypeScript
+- UI State: Redux Toolkit
+- Remote State: RTK Query
+- Роутинг: react-router-dom
+- Локализация: i18next
+- Стилизация: Sass + scss-модули
+- Методология: FSD
+- API: https://restcountries.com/#api-endpoints-using-this-project
+- Vite: Сборщик проекта
