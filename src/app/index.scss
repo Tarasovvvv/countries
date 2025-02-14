@@ -1,5 +1,8 @@
+@use "variables" as *;
+
 * {
   box-sizing: border-box;
+  margin: 0;
 }
 
 :root {
@@ -10,6 +13,8 @@
 body {
   display: flex;
   place-items: center;
+  justify-content: center;
+  min-width: 320px;
   min-height: 100vh;
 }
 
@@ -17,4 +22,45 @@ button {
   font-weight: 500;
   font-family: inherit;
   cursor: pointer;
+}
+
+a {
+  text-decoration: inherit;
+  color: $secondary-text-color;
+  transition: 200ms;
+
+  &:hover {
+    color: $link-hover-color;
+  }
+}
+
+header {
+  place-items: center;
+  margin: 1.5em;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  flex-grow: 1;
+}
+
+footer {
+  display: flex;
+  place-items: center;
+  justify-content: center;
+  width: 100vw;
+  background-color: $footer-bg-color;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+h3 {
+  font-size: 1.2rem;
+  color: $footer-primary-text-color;
 }
