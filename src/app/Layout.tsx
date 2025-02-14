@@ -1,5 +1,5 @@
 import { Outlet, useParams } from "react-router-dom";
-import { Helmet } from "react-helmet";
+import { Helmet, HelmetProvider } from "react-helmet-async";
 import styles from "./Layout.module.scss";
 
 function Layout() {
@@ -7,9 +7,11 @@ function Layout() {
 
   return (
     <div className={styles.layout}>
-      <Helmet>
-        <title>{`Countries - ${country}`}</title>
-      </Helmet>
+      <HelmetProvider>
+        <Helmet>
+          <title>{`Countries${country ? ` - ${country ?? ""}` : ""}`}</title>
+        </Helmet>
+      </HelmetProvider>
 
       <header>
         <h1>Countries - всё о странах в одном месте</h1>

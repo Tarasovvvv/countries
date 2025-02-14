@@ -3,11 +3,14 @@
 * {
   box-sizing: border-box;
   margin: 0;
+  padding: 0;
+  border: 0;
 }
 
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   color-scheme: light dark;
+  max-width: 100%;
 }
 
 body {
@@ -28,6 +31,7 @@ header {
 main {
   display: flex;
   flex-direction: column;
+  gap: 1em;
   justify-content: flex-start;
   align-items: center;
   flex-grow: 1;
@@ -39,6 +43,7 @@ footer {
   justify-content: center;
   width: 100vw;
   background-color: $footer-bg-color;
+  z-index: 0;
 }
 
 ul {
@@ -69,4 +74,11 @@ a {
   &:hover {
     color: $link-hover-color;
   }
+}
+
+p {
+  color: $primary-text-color;
+  font-size: 1.5rem;
+  font-weight: 500;
+  text-align: center;
 }
