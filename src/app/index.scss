@@ -16,22 +16,8 @@ body {
   justify-content: center;
   min-width: 320px;
   min-height: 100vh;
-}
 
-button {
-  font-weight: 500;
-  font-family: inherit;
-  cursor: pointer;
-}
-
-a {
-  text-decoration: inherit;
-  color: $secondary-text-color;
-  transition: 200ms;
-
-  &:hover {
-    color: $link-hover-color;
-  }
+  background-color: $bg-color;
 }
 
 header {
@@ -60,7 +46,27 @@ ul {
   padding: 0;
 }
 
+h1 {
+  color: $primary-text-color;
+}
+
 h3 {
   font-size: 1.2rem;
   color: $footer-primary-text-color;
+}
+
+button {
+  font-weight: 500;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+a {
+  text-decoration: inherit;
+  color: $secondary-text-color;
+  transition: 200ms;
+
+  &:hover {
+    color: $link-hover-color;
+  }
 }
