@@ -1,0 +1,99 @@
+@use "variables" as *;
+
+.backButton {
+  display: flex;
+  position: fixed;
+  top: 50%;
+  left: 6em;
+
+  color: $primary-text-color;
+  background-color: $bg-color;
+
+  font-size: 1rem;
+  place-content: center;
+  padding: 0.8em;
+  border: 1px solid $border-color;
+  border-radius: 100%;
+
+  transition: 200ms;
+
+  transform: translate(0, -50%);
+  &:hover {
+    color: $primary-text-color;
+    background-color: $bg-color-hover;
+  }
+}
+
+.mapLink {
+  color: $primary-text-color;
+  font-weight: 500;
+
+  display: flex;
+  gap: 0.5em;
+  align-items: center;
+
+  &:hover {
+    color: $primary-text-color-hover;
+  }
+}
+
+.countryData {
+  justify-items: left;
+  width: 18em;
+}
+
+.dataItem {
+  display: flex;
+  text-align: left;
+  font-size: 1.2rem;
+  font-weight: 400;
+  color: $primary-text-color;
+}
+
+.dataItemHoverable {
+  &:hover {
+    color: $primary-text-color-hover;
+  }
+}
+
+.dataItemKey {
+  font-family: inherit;
+  font-weight: 500;
+  margin-right: 0.4em;
+}
+
+.currencySymbol {
+  display: flex;
+  align-items: center;
+
+  font-size: 1.1rem;
+  font-weight: 400;
+
+  background-color: rgb(240, 240, 240);
+
+  width: fit-content;
+  padding: 0 0.2em;
+  border-radius: 0.2em;
+  margin: 0 0.2em;
+}
+
+.cca3 {
+  color: $secondary-text-color;
+  margin-right: 0.5em;
+}
+
+.img {
+  height: 20em;
+  border: 1px solid $border-color;
+}
+
+.separator {
+  background-color: $border-color;
+  width: 1px;
+  height: auto;
+}
+
+.borders {
+  font-size: 1.2rem;
+  font-weight: 500;
+}

@@ -8,8 +8,7 @@
 
   &:hover {
     border: 1px solid $border-color;
-    box-shadow: 0 0.5em 0.8em 0.3em $shadow-color;
-    transform: translate(0, -0.5em);
+    box-shadow: 0 0 0.8em 0.3em $shadow-color;
   }
 }
 

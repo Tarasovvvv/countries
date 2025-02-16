@@ -1,6 +1,7 @@
 import { Outlet, useParams } from "react-router-dom";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import styles from "./Layout.module.scss";
+import { Link } from "react-router-dom";
 
 function Layout() {
   const { country } = useParams();
@@ -9,12 +10,16 @@ function Layout() {
     <div className={styles.layout}>
       <HelmetProvider>
         <Helmet>
-          <title>{`Countries${country ? ` - ${country ?? ""}` : ""}`}</title>
+          <title>{`Countries${country ? ` - ${country.replace("_", " ") ?? ""}` : ""}`}</title>
         </Helmet>
       </HelmetProvider>
 
       <header>
-        <h1>Countries - всё о странах в одном месте</h1>
+        <h1>
+          <Link className={styles.homeLink} to="/">
+            Countries - всё о странах в одном месте
+          </Link>
+        </h1>
       </header>
 
       <main>

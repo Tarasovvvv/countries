@@ -10,14 +10,9 @@
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   color-scheme: light dark;
-  max-width: 100%;
 }
 
 body {
-  display: flex;
-  place-items: center;
-  justify-content: flex-end;
-  min-width: 320px;
   min-height: 100vh;
 
   background-color: $bg-color;
@@ -25,7 +20,11 @@ body {
 
 header {
   place-items: center;
-  margin: 1.5em;
+  padding: 1.5em;
+
+  margin-bottom: 2em;
+
+  box-shadow: 0 0 0.3em 0.3em rgb(221, 221, 221);
 }
 
 main {
@@ -41,8 +40,9 @@ footer {
   display: flex;
   place-items: center;
   justify-content: center;
-  width: 100vw;
   background-color: $footer-bg-color;
+
+  margin-top: 2em;
   z-index: 0;
 }
 
@@ -51,10 +51,10 @@ ul {
   padding: 0;
 }
 
-h1 {
+h1,
+h2 {
   color: $primary-text-color;
 }
-
 h3 {
   font-size: 1.2rem;
   color: $footer-primary-text-color;
@@ -81,4 +81,8 @@ p {
   font-size: 1.5rem;
   font-weight: 500;
   text-align: center;
+}
+
+span {
+  font-size: inherit;
 }
