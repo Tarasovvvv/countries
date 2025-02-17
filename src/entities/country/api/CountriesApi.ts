@@ -2,17 +2,25 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { ICountry, IDetailedCountry } from "shared/types";
 
 const CountriesApi = createApi({
-  reducerPath: "countries",
+  reducerPath: "countriesApi",
   baseQuery: fetchBaseQuery({ baseUrl: "https://restcountries.com/v3.1" }),
   endpoints: (build) => ({
-    getAllCountries: build.query<ICountry[], void>({
-      query: () => {
-        return {
-          url: "all",
-          params: {
-            fields: ["name", "flags", "translations"],
-          },
-        };
+    getAllCountries: build.query<ICountry[], { cca2Codes: string | undefined | null }>({
+      query: ({ cca2Codes }) => {
+        return cca2Codes
+          ? {
+              url: "alpha",
+              params: {
+                codes: cca2Codes,
+                fields: ["name", "flags", "translations"],
+              },
+            }
+          : {
+              url: "all",
+              params: {
+                fields: ["name", "flags", "translations"],
+              },
+            };
       },
     }),
     getCountry: build.query<IDetailedCountry[], { name: string }>({
@@ -51,8 +59,28 @@ const CountriesApi = createApi({
         };
       },
     }),
+    getSuggestions: build.query<(Omit<ICountry, "flags"> & { cca3: string })[], void>({
+      query: () => {
+        return {
+          url: "all",
+          params: {
+            fields: ["name", "translations", "cca3"],
+          },
+        };
+      },
+    }),
+    getCountriesByNames: build.query<ICountry[], { codes: string[] }>({
+      query: ({ codes }) => {
+        return {
+          url: "alpha",
+          params: {
+            codes: codes,
+          },
+        };
+      },
+    }),
   }),
 });
 
 export default CountriesApi;
-export const { useGetAllCountriesQuery, useGetCountryQuery, useGetBordersQuery } = CountriesApi;
+export const { useGetAllCountriesQuery, useGetCountryQuery, useGetBordersQuery, useGetSuggestionsQuery } = CountriesApi;

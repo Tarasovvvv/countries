@@ -6,7 +6,7 @@ interface IProps {
 
 const useCountry = ({ name }: IProps) => {
   const { data, isLoading, error } = useGetCountryQuery({ name: name || "" });
-  const { data: bordersData } = useGetBordersQuery({ bordersCodes: data?.[0].borders || [] });
+  const { data: bordersData } = useGetBordersQuery({ bordersCodes: data?.[0].borders || [] }, { skip: !data || !data[0]?.borders?.length });
   return { countryData: data?.[0], bordersData, isLoading, error };
 };
 export default useCountry;

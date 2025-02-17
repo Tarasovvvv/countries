@@ -30,7 +30,7 @@ function CountryPage() {
       </Link>
       <div style={{ display: "flex", justifyContent: "space-between", width: "40em" }}>
         <div className={styles.countryData} style={{ display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
-          <p className={styles.borders}>{bordersData ? "Страны соседи" : "Нет стран соседей"}</p>
+          <div className={styles.borders}>{bordersData ? "Страны соседи" : "Нет стран соседей"}</div>
           {bordersData?.map((item) => (
             <Link to={`/${item.name.common}`} key={`${item.name.common}`} className={`${styles.dataItem} ${styles.dataItemHoverable}`} style={{ alignItems: "center" }}>
               <svg
@@ -50,32 +50,32 @@ function CountryPage() {
         </div>
         <div className={styles.separator} />
         <div className={styles.countryData}>
-          <p className={styles.dataItem}>
+          <div className={styles.dataItem}>
             <span className={styles.dataItemKey}>Столица:</span>
             {countryData?.capital}
-          </p>
-          <p className={styles.dataItem}>
+          </div>
+          <div className={styles.dataItem}>
             <span className={styles.dataItemKey}>Население:</span>
             {`${countryData?.population} чел.`}
-          </p>
-          <p className={styles.dataItem}>
+          </div>
+          <div className={styles.dataItem}>
             <span className={styles.dataItemKey}>Площадь:</span>
             {`${countryData?.area} км`}
             <sup style={{ fontSize: "0.8rem" }}>2</sup>
-          </p>
-          <p className={styles.dataItem}>
+          </div>
+          <div className={styles.dataItem}>
             <span className={styles.dataItemKey}>Континенты:</span>
             {countryData?.continents.join(", ")}
-          </p>
-          <p className={styles.dataItem}>
+          </div>
+          <div className={styles.dataItem}>
             <span className={styles.dataItemKey}>Регионы:</span>
             {countryData?.region}
-          </p>
-          <p className={styles.dataItem}>
+          </div>
+          <div className={styles.dataItem}>
             <span className={styles.dataItemKey}>Языки:</span>
             {Object.values(countryData?.languages || []).join(", ")}
-          </p>
-          <p className={styles.dataItem}>
+          </div>
+          <div className={styles.dataItem}>
             <span className={styles.dataItemKey}>Валюта:</span>
             {Object.entries(countryData?.currencies || []).map(([key, value]) => (
               <div key={`${key}${value.symbol}`} title={value.name} style={{ display: "flex" }}>
@@ -83,11 +83,11 @@ function CountryPage() {
                 {key}
               </div>
             ))}
-          </p>
-          <p className={styles.dataItem} style={{ textAlign: "left", display: "flex", flexDirection: "column" }}>
+          </div>
+          <div className={styles.dataItem} style={{ textAlign: "left", display: "flex", flexDirection: "column" }}>
             <span className={styles.dataItemKey}>Часовые пояса:</span>
             {countryData?.timezones.join(", ")}
-          </p>
+          </div>
         </div>
       </div>
     </>

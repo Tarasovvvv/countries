@@ -9,7 +9,7 @@ interface IProps {
 function CountryPreview({ data }: IProps) {
   return (
     <Link to={data.name.common.replace(" ", "_")} className={styles.country}>
-      <img src={data.flags.svg} loading="lazy" className={styles.img} />
+      <img src={data.flags.svg || data.flags.png} loading="lazy" className={styles.img} />
       <p>{data.translations.rus.official}</p>
     </Link>
   );

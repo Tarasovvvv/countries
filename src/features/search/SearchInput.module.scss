@@ -1,0 +1,146 @@
+@use "variables" as *;
+
+.search {
+  position: relative;
+  display: flex;
+  color: $primary-text-color;
+  align-items: center;
+  width: 40em;
+  z-index: 0;
+}
+
+.input {
+  font-size: 1rem;
+  font-family: inherit;
+  padding: 0.5em;
+  padding-left: 2.5em;
+
+  color: inherit;
+  background-color: $bg-color;
+  border: 1px solid $border-color;
+  border-radius: 1em;
+
+  flex-grow: 1;
+  z-index: 1;
+  transition: 200ms;
+
+  &:focus {
+    outline: none;
+    border-bottom: 1px solid $border-color-inverse;
+
+    border-color: $border-focus-color;
+  }
+}
+
+.loupe {
+  position: absolute;
+  left: 0.75em;
+  z-index: 2;
+  transition: 200ms;
+}
+
+.focused {
+  color: $primary-text-color;
+  border-color: $border-color;
+  fill: $primary-text-color;
+}
+
+.blurred {
+  color: $secondary-text-color;
+  border-color: $border-color-inverse;
+  fill: $secondary-text-color;
+}
+
+.suggestions {
+  max-height: calc((1rem + 1em) * 10);
+  overflow-y: auto;
+
+  &::-webkit-scrollbar {
+    width: 0.1em;
+    display: none;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    color: transparent;
+    border-radius: 10px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+    border-radius: 10px;
+  }
+
+  scrollbar-color: $secondary-text-color transparent;
+
+  @keyframes spawn {
+    to {
+      opacity: 1;
+    }
+  }
+}
+
+.aWrapper {
+  &:hover {
+    background-color: $bg-color-hover;
+  }
+}
+
+.a {
+  font-size: 1rem;
+  color: $primary-text-color;
+
+  &:hover {
+    color: $primary-text-color;
+  }
+}
+
+.forward {
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-align: left;
+  margin: 0.5em 0;
+}
+
+.filled {
+  border-bottom: 1px solid $border-color-inverse;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.suggestionsWrapper {
+  position: absolute;
+  width: inherit;
+  top: calc(1.25em);
+
+  padding: 0.5em;
+  padding-top: 1em;
+  background-color: $bg-color;
+  border: 1px solid $border-focus-color;
+  border-top: 1px solid $border-color-inverse;
+  border-radius: 1em;
+  border-top-right-radius: 0;
+  border-top-left-radius: 0;
+  opacity: 0;
+  animation: spawn 200ms linear forwards;
+}
+
+.submitButton {
+  font-size: 1rem;
+  position: absolute;
+  right: 0.25em;
+  background-color: inherit;
+  z-index: 1;
+  border: 1px solid;
+  padding: 0.2em 1em;
+  border-radius: 1em;
+  padding-bottom: 0.3em;
+  transition: 200ms;
+
+  &:hover {
+    background-color: $bg-color-hover;
+  }
+
+  &:disabled {
+    cursor: default;
+  }
+}

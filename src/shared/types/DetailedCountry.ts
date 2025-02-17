@@ -1,5 +1,6 @@
 export default interface IDetailedCountry {
   name: {
+    common: string;
     official: string;
   };
   flags: {
