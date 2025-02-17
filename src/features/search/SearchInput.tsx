@@ -3,9 +3,9 @@ import { Link, useNavigate } from "react-router-dom";
 import clsx from "clsx";
 import { useSuggestions } from "entities/country";
 import { useDebounce } from "shared/lib/hooks";
-import styles from "./SearchInput.module.scss";
-import Loader from "features/loader/Loader";
+import { Loader } from "features";
 import { ICountry } from "shared/types";
+import styles from "./SearchInput.module.scss";
 
 const SearchInput = () => {
   const [text, setText] = useState("");
@@ -48,7 +48,7 @@ const SearchInput = () => {
       <input
         ref={inputRef}
         className={clsx(styles.input, {
-          [styles.filled]: suggestions?.length && suggestions?.length > 0 && isFocused,
+          [styles.filled]: suggestions?.length && isFocused && text,
         })}
         type="text"
         value={text}
@@ -67,7 +67,7 @@ const SearchInput = () => {
       >
         Поиск
       </button>
-      {isFocused && suggestions && suggestions.length > 0 && (
+      {isFocused && suggestions && suggestions.length > 0 && text && (
         <div className={styles.suggestionsWrapper}>
           <p className={styles.forward}>Бытрый переход</p>
           <div className={styles.suggestions}>
