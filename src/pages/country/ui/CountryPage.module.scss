@@ -1,29 +1,5 @@
 @use "variables" as *;
 
-.backButton {
-  display: flex;
-  position: fixed;
-  top: 50%;
-  left: 6em;
-
-  color: $primary-text-color;
-  background-color: $bg-color;
-
-  font-size: 1rem;
-  place-content: center;
-  padding: 0.8em;
-  border: 1px solid $border-color;
-  border-radius: 100%;
-
-  transition: 200ms;
-
-  transform: translate(0, -50%);
-  &:hover {
-    color: $primary-text-color;
-    background-color: $bg-color-hover;
-  }
-}
-
 .mapLink {
   color: $primary-text-color;
   font-weight: 500;
@@ -96,5 +72,48 @@
 .borders {
   font-size: 1.2rem;
   font-weight: 500;
+  color: $primary-text-color;
+}
+
+.back {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 50%;
+  left: 6em;
+  transition: 200ms;
+  place-content: center;
+  font-size: 1rem;
+  transform: translate(0, -50%);
+}
+
+.backButton {
+  position: relative;
+  font-size: inherit;
+  color: $primary-text-color;
+  background-color: $bg-color;
+
+  font-size: 1rem;
+  place-content: center;
+  padding: 1.5em;
+  border: 1px solid $border-color;
+  border-radius: 100%;
+
+  &:hover {
+    color: $primary-text-color;
+    background-color: $bg-color-hover;
+  }
+}
+
+.backImg {
+  position: absolute;
+  width: 1.8em;
+  height: 1.8em;
+  transform: translate(-50%, -50%);
+}
+
+.backTitle {
+  font-size: 1rem;
+  margin: 0.5em 0;
   color: $primary-text-color;
 }
