@@ -1,6 +1,7 @@
 export { useGetAllCountriesQuery, useGetCountryQuery, useGetBordersQuery, useGetSuggestionsQuery } from "./api/CountriesApi";
 export { default as CountriesApi } from "./api/CountriesApi";
-export { default as useCountries } from "./model/hooks/useCountries";
+export { default as useSearch } from "./model/hooks/useSearch";
+export { default as useSort } from "./model/hooks/useSort";
 export { default as useCountry } from "./model/hooks/useCountry";
 export { default as useSuggestions } from "./model/hooks/useSuggestions";
 
