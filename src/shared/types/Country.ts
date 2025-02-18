@@ -12,4 +12,5 @@ export default interface ICountry {
       official: string;
     };
   };
+  population: number;
 }

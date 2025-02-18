@@ -12,13 +12,13 @@ const CountriesApi = createApi({
               url: "alpha",
               params: {
                 codes: cca2Codes,
-                fields: ["name", "flags", "translations"],
+                fields: ["name", "flags", "translations", "population"],
               },
             }
           : {
               url: "all",
               params: {
-                fields: ["name", "flags", "translations"],
+                fields: ["name", "flags", "translations", "population"],
               },
             };
       },

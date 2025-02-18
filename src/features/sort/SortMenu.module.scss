@@ -1,0 +1,31 @@
+@use "variables" as *;
+
+.sortForm {
+  width: 28em;
+}
+
+.sortFieldset {
+  display: flex;
+  gap: 1em;
+}
+
+.sortLabel {
+  color: $primary-text-color;
+  font-size: 1rem;
+  font-weight: 600;
+  text-align: left;
+}
+
+.submitButton {
+  display: flex;
+  gap: 0.1em;
+  align-items: center;
+  font-size: 1rem;
+  font-weight: 400;
+  color: $primary-text-color;
+  background-color: inherit;
+
+  &.selected {
+    font-weight: 600;
+  }
+}
