@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import clsx from "clsx";
 import { useSuggestions } from "entities/country";
 import { useDebounce } from "shared/lib/hooks";
@@ -14,24 +14,29 @@ const SearchInput = () => {
   const debouncedText = useDebounce(text, 200);
   const { suggestions, isLoading } = useSuggestions({ input: debouncedText });
   const navigate = useNavigate();
+  const [params] = useSearchParams();
 
   const extractCca3 = (elements: (Omit<ICountry, "flags"> & { cca3: string })[] | undefined): string | null => {
     if (!elements) return null;
-
     const cca3Codes = elements?.map((item) => item.cca3);
+
     return cca3Codes.join(",");
   };
 
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    inputRef.current?.blur();
+    const cca3Codes = extractCca3(suggestions);
+    if (!cca3Codes || !cca3Codes.length) {
+      params.delete("search");
+    } else {
+      params.set("search", cca3Codes);
+    }
+    navigate(`${location.pathname}?${params.toString()}`);
+  };
+
   return (
-    <form
-      className={styles.search}
-      onSubmit={(e) => {
-        e.preventDefault();
-        const path = extractCca3(suggestions);
-        navigate(path ? `/?search=${path}` : "/");
-        inputRef.current?.blur();
-      }}
-    >
+    <form className={styles.search} onSubmit={handleSubmit}>
       <svg
         className={clsx(styles.loupe, {
           [styles.focused]: text,

@@ -32,8 +32,12 @@ const SortMenu = ({ fields }: IProps) => {
   }, []);
 
   const handleSubmmit = (index: number) => {
-    console.log(fields[index].order);
-    params.set("sort", `${fields[index].queryParam}_${fields[index].order === "asc" ? "desc" : "asc"}`);
+    const sortOrder = fields[index].order === "asc" ? "desc" : "asc";
+    if (sortOrder === "asc") {
+      params.delete("sort");
+    } else {
+      params.set("sort", `${fields[index].queryParam}_desc`);
+    }
     navigate(`${location.pathname}?${params.toString()}`);
   };
 
