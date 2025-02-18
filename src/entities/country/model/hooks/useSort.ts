@@ -9,7 +9,7 @@ const useSort = (fields: ISortParameter[]) => {
 
   fields.forEach((field) => (field.order = sortParamName === "population" ? sortParamOrder : "asc"));
 
-  const sortCountries = (countries: ICountry[] | null | undefined) => {
+  const sortCountries = (countries: ICountry[]) => {
     if (!countries) return null;
 
     let sortedCountries = [...countries];

@@ -5,13 +5,13 @@ const CountriesApi = createApi({
   reducerPath: "countriesApi",
   baseQuery: fetchBaseQuery({ baseUrl: "https://restcountries.com/v3.1" }),
   endpoints: (build) => ({
-    getAllCountries: build.query<ICountry[], { cca2Codes: string | undefined | null }>({
-      query: ({ cca2Codes }) => {
-        return cca2Codes
+    getAllCountries: build.query<ICountry[], { cca3Codes: string | undefined | null }>({
+      query: ({ cca3Codes }) => {
+        return cca3Codes
           ? {
               url: "alpha",
               params: {
-                codes: cca2Codes,
+                codes: cca3Codes,
                 fields: ["name", "flags", "translations", "population"],
               },
             }
@@ -79,8 +79,19 @@ const CountriesApi = createApi({
         };
       },
     }),
+    getCca3ByRegion: build.query<{ cca3: string }[], { region: string }>({
+      query: ({ region }) => {
+        console.log();
+        return {
+          url: `region/${region}`,
+          params: {
+            fields: ["cca3"],
+          },
+        };
+      },
+    }),
   }),
 });
 
 export default CountriesApi;
-export const { useGetAllCountriesQuery, useGetCountryQuery, useGetBordersQuery, useGetSuggestionsQuery } = CountriesApi;
+export const { useGetAllCountriesQuery, useGetCountryQuery, useGetBordersQuery, useGetSuggestionsQuery, useGetCca3ByRegionQuery } = CountriesApi;
