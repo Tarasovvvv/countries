@@ -1,6 +1,5 @@
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { useEffect } from "react";
-import clsx from "clsx";
 import { ISortParameter } from "shared/types";
 import styles from "./FilterMenu.module.scss";
 
