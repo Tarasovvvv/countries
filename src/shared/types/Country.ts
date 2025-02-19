@@ -13,4 +13,5 @@ export default interface ICountry {
     };
   };
   population: number;
+  cca3: string;
 }

@@ -1,10 +1,10 @@
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
-import { useEffect } from "react";
-import { ISortParameter } from "shared/types";
+import { IFilterParameter } from "shared/types";
+import { useEffect, useState } from "react";
 import styles from "./FilterMenu.module.scss";
 
 interface IProps {
-  fields: ISortParameter[] | undefined;
+  fields: IFilterParameter[] | undefined;
 }
 
 const FilterMenu = ({ fields }: IProps) => {
@@ -13,34 +13,73 @@ const FilterMenu = ({ fields }: IProps) => {
   const navigate = useNavigate();
   const location = useLocation();
   const [params] = useSearchParams();
-  const sortParam = params.get("sort");
+
+  const [selectedFilters, setSelectedFilters] = useState<{ [key: string]: string[] }>({});
 
   useEffect(() => {
-    if (sortParam) {
-      const sortParamOrder = sortParam.slice(sortParam.indexOf("_") + 1);
-      if (sortParamOrder === "asc" || sortParamOrder === "desc") {
-        const sortParamName = sortParam.slice(0, sortParam.indexOf("_"));
-        for (let i = 0; i < fields.length; i++) {
-          if (fields[i].queryParam === sortParamName) {
-            fields[i].order = sortParamOrder;
-            break;
-          }
-        }
-      }
-    }
-  }, []);
+    const newSelectedFilters: { [key: string]: string[] } = {};
 
-  const handleSubmmit = (index: number) => {
-    const sortOrder = fields[index].order === "asc" ? "desc" : "asc";
-    if (sortOrder === "asc") {
-      params.delete("sort");
-    } else {
-      params.set("sort", `${fields[index].queryParam}_desc`);
-    }
-    navigate(`${location.pathname}?${params.toString()}`);
+    fields.forEach((field) => {
+      const param = params.get(field.queryParam);
+
+      if (param) {
+        newSelectedFilters[field.queryParam] = decodeURIComponent(param).split(",");
+      } else {
+        newSelectedFilters[field.queryParam] = [];
+      }
+    });
+
+    setSelectedFilters(newSelectedFilters);
+  }, [location.search, fields, params]);
+
+  const handleFilterChange = (filterQueryParam: string, value: string) => {
+    setSelectedFilters((prevSelectedFilters) => {
+      const newSelectedFilters = { ...prevSelectedFilters };
+
+      if (newSelectedFilters[filterQueryParam]?.includes(value)) {
+        newSelectedFilters[filterQueryParam] = newSelectedFilters[filterQueryParam].filter((item) => item !== value);
+      } else {
+        newSelectedFilters[filterQueryParam] = [...(newSelectedFilters[filterQueryParam] || []), value];
+      }
+
+      const newParams = new URLSearchParams(params);
+      newParams.delete(filterQueryParam);
+
+      if (newSelectedFilters[filterQueryParam].length > 0) {
+        newParams.set(filterQueryParam, newSelectedFilters[filterQueryParam].join(","));
+      }
+
+      navigate(`${location.pathname}?${newParams.toString()}`, { state: { clearCache: true } });
+
+      return newSelectedFilters;
+    });
   };
 
-  return <div className={styles.sortForm}></div>;
+  return (
+    <div className={styles.filterMenu}>
+      <fieldset>
+        <legend className={styles.legend}>Фильтры</legend>
+        {fields.map((field) => (
+          <details key={field.queryParam} open>
+            <summary>{field.name}</summary>
+            <div className={styles.filtersWrapper}>
+              {field.paramValues.map((value) => (
+                <label key={field.queryParam + value.value} className={styles.filterLabel}>
+                  <input
+                    type="checkbox"
+                    checked={selectedFilters[field.queryParam]?.includes(value.value)}
+                    className={styles.checkbox}
+                    onChange={() => handleFilterChange(field.queryParam, value.value)}
+                  />
+                  {value.name}
+                </label>
+              ))}
+            </div>
+          </details>
+        ))}
+      </fieldset>
+    </div>
+  );
 };
 
 export default FilterMenu;

@@ -1,5 +1,5 @@
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import clsx from "clsx";
 import { ISortParameter } from "shared/types";
 import styles from "./SortMenu.module.scss";
@@ -42,7 +42,7 @@ const SortMenu = ({ fields }: IProps) => {
   };
 
   return (
-    <div className={styles.sortForm}>
+    <div className={styles.sortMenu}>
       <fieldset className={styles.sortFieldset}>
         <legend className={styles.sortLabel}>Сортировать по</legend>
         {fields &&

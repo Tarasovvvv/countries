@@ -1,0 +1,13 @@
+.filterWrapper {
+  display: flex;
+  gap: 1em;
+  align-items: flex-start;
+}
+
+.previewsWrapper {
+  display: flex;
+  flex-direction: column;
+  min-width: 30em;
+  min-height: 19em;
+  width: fit-content;
+}

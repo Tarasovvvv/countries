@@ -7,27 +7,28 @@ const CountriesApi = createApi({
   endpoints: (build) => ({
     getAllCountries: build.query<ICountry[], { cca3Codes: string | undefined | null }>({
       query: ({ cca3Codes }) => {
-        return cca3Codes
+        return !cca3Codes
           ? {
-              url: "alpha",
+              url: "all",
               params: {
-                codes: cca3Codes,
-                fields: ["name", "flags", "translations", "population"],
+                fields: ["name", "flags", "translations", "population", "cca3"],
               },
             }
           : {
-              url: "all",
+              url: "alpha",
               params: {
-                fields: ["name", "flags", "translations", "population"],
+                codes: cca3Codes,
+                fields: ["name", "flags", "translations", "population", "cca3"],
               },
             };
       },
     }),
-    getCountry: build.query<IDetailedCountry[], { name: string }>({
-      query: ({ name }) => {
+    getCountry: build.query<IDetailedCountry[], { cca3: string | null | undefined }>({
+      query: ({ cca3 }) => {
         return {
-          url: `name/${encodeURIComponent(name)}`,
+          url: `alpha`,
           params: {
+            codes: cca3,
             fields: [
               "name",
               "cca3",
@@ -48,13 +49,13 @@ const CountriesApi = createApi({
         };
       },
     }),
-    getBorders: build.query<Pick<ICountry, "name" | "translations">[], { bordersCodes: string[] }>({
+    getBorders: build.query<Pick<ICountry, "name" | "translations" | "cca3">[], { bordersCodes: string[] }>({
       query: ({ bordersCodes }) => {
         return {
           url: `alpha`,
           params: {
             codes: bordersCodes,
-            fields: ["name", "translations"],
+            fields: ["name", "translations", "cca3"],
           },
         };
       },
@@ -79,15 +80,34 @@ const CountriesApi = createApi({
         };
       },
     }),
-    getCca3ByRegion: build.query<{ cca3: string }[], { region: string }>({
-      query: ({ region }) => {
-        console.log();
-        return {
-          url: `region/${region}`,
-          params: {
-            fields: ["cca3"],
-          },
-        };
+    getCca3ByRegion: build.query<{ cca3: string }[], { regions: (string | null)[] }>({
+      queryFn: async ({ regions }, _queryApi, _extraOptions, baseQuery) => {
+        const filteredRegions = regions.filter((region) => region != null && region.trim() !== "");
+
+        if (filteredRegions.length === 0) {
+          return { data: [] };
+        }
+
+        const promises = filteredRegions.map((region) => {
+          return baseQuery({
+            url: `region/${region}`,
+            params: { fields: ["cca3"] },
+          });
+        });
+
+        try {
+          const responses = await Promise.all(promises);
+          const data = responses.map((response) => response?.data).flat();
+          return { data: data as { cca3: string }[] };
+        } catch (error) {
+          return {
+            error: {
+              status: 500,
+              statusText: "Ошибка сервера",
+              data: "Один или несколько запросов прошли неудачно",
+            },
+          };
+        }
       },
     }),
   }),

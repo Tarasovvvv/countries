@@ -1,6 +1,6 @@
 import React, { Suspense } from "react";
 import { useSearch, useSort, useFilter } from "entities/country";
-import { Loader, Errorer, SearchInput, SortMenu } from "features";
+import { Loader, Errorer, SearchInput, SortMenu, FilterMenu } from "features";
 import { ISortParameter, IFilterParameter } from "shared/types";
 import styles from "./HomePage.module.scss";
 
@@ -17,7 +17,7 @@ function HomePage() {
   // Нет ендпоинта, чтобы подтянуть регионы из бд, поэтому хардкод любимый
   const filterFields: IFilterParameter[] = [
     {
-      name: "Региону",
+      name: "Регион",
       queryParam: "region",
       paramValues: [
         { name: "Азия", value: "asia" },
@@ -40,13 +40,14 @@ function HomePage() {
     <>
       <SearchInput />
       <SortMenu fields={sortFields} />
-      <Loader isOpen={isLoading} />
-      <Errorer isOpen={error !== undefined} error={error && "data" in error ? error.data?.message : error?.message} />
-      <Suspense fallback={<Loader />}>
-        {finalData?.map((item, i) => (
-          <LazyCountryPreview key={i} data={item} />
-        ))}
-      </Suspense>
+      <div className={styles.filterWrapper}>
+        <div className={styles.previewsWrapper}>
+          <Loader isOpen={isLoading} />
+          <Errorer isOpen={error !== undefined} error={error} />
+          <Suspense fallback={<Loader />}>{!isLoading && !error && finalData?.map((item, i) => <LazyCountryPreview key={i} data={item} />)}</Suspense>
+        </div>
+        <FilterMenu fields={filterFields} />
+      </div>
     </>
   );
 }

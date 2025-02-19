@@ -67,7 +67,7 @@ const SearchInput = () => {
         disabled={!text}
         className={clsx(styles.submitButton, {
           [styles.focused]: text,
-          [styles.blurred]: !text,
+          [styles.blurred]: !text || !suggestions?.length,
         })}
       >
         Поиск

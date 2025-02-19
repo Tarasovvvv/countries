@@ -2,10 +2,11 @@ import { useCountry } from "entities/country";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { Loader, Errorer } from "features";
 import styles from "./CountryPage.module.scss";
+import { Suspense } from "react";
 
 function CountryPage() {
-  const { country } = useParams();
-  const { countryData, bordersData, isLoading, error } = useCountry({ name: country!.replace("_", " ") });
+  const { cca3 } = useParams();
+  const { countryData, bordersData, isLoading, error } = useCountry({ cca3: cca3 });
   const navigate = useNavigate();
   return (
     <>
@@ -18,7 +19,7 @@ function CountryPage() {
         <p className={styles.backTitle}>Назад</p>
       </div>
       <Loader isOpen={isLoading} />
-      <Errorer isOpen={error !== undefined} error={error && "data" in error ? `${country} - ${error.data?.message}` : error?.message} />
+      <Errorer isOpen={error !== undefined} error={error && "data" in error ? `${countryData?.name} - ${error.data?.message}` : error?.message} />
       {!isLoading && (
         <>
           <img className={styles.img} src={countryData?.flags.svg} alt={countryData?.flags.alt} loading="lazy" />
@@ -34,76 +35,78 @@ function CountryPage() {
             </svg>
             <span>Страна на карте</span>
           </Link>
-          <div style={{ display: "flex", justifyContent: "space-between", width: "40em" }}>
-            <div className={styles.countryData} style={{ display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
-              <div className={styles.borders}>{bordersData ? "Страны соседи" : "Нет стран соседей"}</div>
-              {bordersData?.map((item) => (
-                <Link
-                  to={`/${item.name.common}`}
-                  key={`${item.name.common}`}
-                  className={`${styles.dataItem} ${styles.dataItemHoverable}`}
-                  style={{ alignItems: "center" }}
-                >
-                  <svg
-                    key={`svg${item.name.common}`}
-                    style={{ marginRight: "0.4em" }}
-                    width="1em"
-                    height="1em"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M4 17H20M20 17L16 13M20 17L16 21M20 7H4M4 7L8 3M4 7L8 11"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                  {item.name.common}
-                </Link>
-              ))}
-            </div>
-            <div className={styles.separator} />
-            <div className={styles.countryData}>
-              <div className={styles.dataItem}>
-                <span className={styles.dataItemKey}>Столица:</span>
-                {countryData?.capital}
-              </div>
-              <div className={styles.dataItem}>
-                <span className={styles.dataItemKey}>Население:</span>
-                {`${countryData?.population} чел.`}
-              </div>
-              <div className={styles.dataItem}>
-                <span className={styles.dataItemKey}>Площадь:</span>
-                {`${countryData?.area} км`}
-                <sup style={{ fontSize: "0.8rem" }}>2</sup>
-              </div>
-              <div className={styles.dataItem}>
-                <span className={styles.dataItemKey}>Континенты:</span>
-                {countryData?.continents.join(", ")}
-              </div>
-              <div className={styles.dataItem}>
-                <span className={styles.dataItemKey}>Регионы:</span>
-                {countryData?.region}
-              </div>
-              <div className={styles.dataItem}>
-                <span className={styles.dataItemKey}>Языки:</span>
-                {Object.values(countryData?.languages || []).join(", ") || "Нет"}
-              </div>
-              <div className={styles.dataItem}>
-                <span className={styles.dataItemKey}>Валюта:</span>
-                {Object.entries(countryData?.currencies || []).map(([key, value]) => (
-                  <div key={`${key}${value.symbol}`} title={value.name} style={{ display: "flex" }} className={styles.splittable}>
-                    <span className={styles.currencySymbol}>{value.symbol}</span>
-                    {key}
-                  </div>
+          <div style={{ display: "flex", width: "100%" }}>
+            <div style={{ display: "flex", width: "50%", paddingRight: "1em", justifyContent: "flex-end" }}>
+              <div className={styles.countryData} style={{ display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
+                <div className={styles.borders}>{bordersData ? "Страны соседи" : "Нет стран соседей"}</div>
+                {bordersData?.map((item) => (
+                  <Link to={`/${item.cca3}`} key={`${item.name.common}`} className={`${styles.dataItem} ${styles.dataItemHoverable}`} style={{ alignItems: "center" }}>
+                    <svg
+                      key={`svg${item.name.common}`}
+                      style={{ marginRight: "0.4em" }}
+                      width="1em"
+                      height="1em"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M4 17H20M20 17L16 13M20 17L16 21M20 7H4M4 7L8 3M4 7L8 11"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                    {item.name.common}
+                  </Link>
                 ))}
               </div>
-              <div className={styles.dataItem} style={{ textAlign: "left", display: "flex", flexDirection: "column" }}>
-                <span className={styles.dataItemKey}>Часовые пояса:</span>
-                {countryData?.timezones.join(", ")}
+            </div>
+            <div className={styles.separator} />
+            <div style={{ display: "flex", width: "50%", paddingLeft: "1em", justifyContent: "flex-start" }}>
+              <div className={`${styles.countryData} ${styles.expandable}`}>
+                <div className={styles.dataItem}>
+                  <span className={styles.dataItemKey}>Столица:</span>
+                  {!countryData?.capital.length ? "Нет" : countryData?.capital}
+                </div>
+                <div className={styles.dataItem}>
+                  <span className={styles.dataItemKey}>Население:</span>
+                  {`${countryData?.population} чел.` || (!countryData?.population && "Нет")}
+                </div>
+                <div className={styles.dataItem}>
+                  <span className={styles.dataItemKey}>Площадь:</span>
+                  {`${countryData?.area} км` || "Нет"}
+                  <sup style={{ fontSize: "0.8rem" }}>2</sup>
+                </div>
+                <div className={styles.dataItem}>
+                  <span className={styles.dataItemKey}>Континенты:</span>
+                  {countryData?.continents.join(", ") || "Нет"}
+                </div>
+                <div className={styles.dataItem}>
+                  <span className={styles.dataItemKey}>Регионы:</span>
+                  {countryData?.region}
+                </div>
+                <div className={styles.dataItem}>
+                  <span className={styles.dataItemKey}>Языки:</span>
+                  {Object.values(countryData?.languages || []).join(", ") || "Нет"}
+                </div>
+                <div className={styles.dataItem}>
+                  <span className={styles.dataItemKey}>Валюта:</span>
+                  {(!countryData?.currencies.length && "Нет") ||
+                    Object.entries(countryData?.currencies || []).map(([key, value]) => (
+                      <div key={`${key}${value.symbol}`} title={value.name} style={{ display: "flex" }} className={styles.splittable}>
+                        <span className={styles.currencySymbol}>{value.symbol}</span>
+                        {key}
+                      </div>
+                    ))}
+                </div>
+                <div className={styles.dataItem} style={{ display: "flex", flexDirection: "column" }}>
+                  <span className={styles.dataItemKey} style={{ textWrap: "nowrap" }}>
+                    Часовые пояса:
+                  </span>
+                  {countryData?.timezones.join(", ") || "Нет"}
+                </div>
               </div>
             </div>
           </div>

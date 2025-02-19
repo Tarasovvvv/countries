@@ -86,3 +86,40 @@ p {
 span {
   font-size: inherit;
 }
+
+legend {
+  cursor: default;
+  color: $primary-text-color;
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-align: left;
+}
+
+fieldset {
+}
+
+details {
+  &[open] summary::after {
+    transform: rotate(90deg);
+  }
+}
+
+summary,
+label {
+  user-select: none;
+}
+
+summary {
+  cursor: pointer;
+  font-weight: 600;
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.25em;
+
+  &::after {
+    content: "⯆";
+    color: $primary-text-color;
+    transition: 300ms;
+  }
+}
