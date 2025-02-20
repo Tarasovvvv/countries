@@ -27,6 +27,9 @@ const useSearch = (queryFilters: IQueryFilter[]) => {
   if (filteredCca3.length > 0) {
     if (searchedCca3?.length && searchedCca3?.length > 0) {
       finalCca3 = filteredCca3.filter((item) => searchedCca3.includes(item));
+      if (!finalCca3.length) {
+        finalCca3 = ["noAlpha"];
+      }
     } else {
       finalCca3 = filteredCca3;
     }

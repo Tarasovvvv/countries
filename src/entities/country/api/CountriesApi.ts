@@ -7,7 +7,7 @@ const CountriesApi = createApi({
   endpoints: (build) => ({
     getAllCountries: build.query<ICountry[], { cca3Codes: string | undefined | null }>({
       query: ({ cca3Codes }) => {
-        return !cca3Codes || cca3Codes === ""
+        return !cca3Codes
           ? {
               url: "all",
               params: {

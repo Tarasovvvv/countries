@@ -21,7 +21,7 @@ const FilterMenu = ({ fields }: IProps) => {
       })
     )
   );
-  const debouncedFilters = useDebounce(selectedFilters, 1000);
+  const debouncedFilters = useDebounce(selectedFilters, 1200);
 
   useEffect(() => {
     Object.keys(debouncedFilters).forEach((filterQueryParam) => {
