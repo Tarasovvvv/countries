@@ -19,7 +19,9 @@ body {
 }
 
 header {
-  place-items: center;
+  display: flex;
+  gap: 1em;
+  justify-content: center;
   padding: 1.5em;
 
   margin-bottom: 2em;

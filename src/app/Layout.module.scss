@@ -20,8 +20,10 @@
   }
 }
 
-.homeLink {
+.homeButton {
+  font: inherit;
   color: $primary-text-color;
+  background-color: inherit;
 
   &:hover {
     color: $primary-text-color;

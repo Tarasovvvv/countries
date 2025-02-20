@@ -23,6 +23,7 @@
     /* Aliases */
     "baseUrl": "src",
     "paths": {
+      "src/*": ["src/*"],
       "app/*": ["app/*"],
       "pages/*": ["pages/*"],
       "shared/*": ["shared/*"],

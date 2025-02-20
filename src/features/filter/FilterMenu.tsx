@@ -2,6 +2,7 @@ import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { IFilterParameter } from "shared/types";
 import { useEffect, useState } from "react";
 import styles from "./FilterMenu.module.scss";
+import { useDebounce } from "shared/lib/hooks";
 
 interface IProps {
   fields: IFilterParameter[] | undefined;
@@ -13,46 +14,38 @@ const FilterMenu = ({ fields }: IProps) => {
   const navigate = useNavigate();
   const location = useLocation();
   const [params] = useSearchParams();
-
-  const [selectedFilters, setSelectedFilters] = useState<{ [key: string]: string[] }>({});
+  const [selectedFilters, setSelectedFilters] = useState<{ [key: string]: string[] | null }>(
+    Object.fromEntries(
+      fields.map((field) => {
+        return [field.queryParam, params.get(field.queryParam)?.split(",") ?? null];
+      })
+    )
+  );
+  const debouncedFilters = useDebounce(selectedFilters, 1000);
 
   useEffect(() => {
-    const newSelectedFilters: { [key: string]: string[] } = {};
-
-    fields.forEach((field) => {
-      const param = params.get(field.queryParam);
-
-      if (param) {
-        newSelectedFilters[field.queryParam] = decodeURIComponent(param).split(",");
+    Object.keys(debouncedFilters).forEach((filterQueryParam) => {
+      const values = debouncedFilters[filterQueryParam] || [];
+      if (values.length > 0) {
+        params.set(filterQueryParam, values.join(","));
       } else {
-        newSelectedFilters[field.queryParam] = [];
+        params.delete(filterQueryParam);
       }
     });
 
-    setSelectedFilters(newSelectedFilters);
-  }, [location.search, fields, params]);
+    navigate(`${location.pathname}?${params.toString()}`);
+  }, [debouncedFilters]);
 
   const handleFilterChange = (filterQueryParam: string, value: string) => {
-    setSelectedFilters((prevSelectedFilters) => {
-      const newSelectedFilters = { ...prevSelectedFilters };
+    const newSelectedFilters = { ...selectedFilters };
 
-      if (newSelectedFilters[filterQueryParam]?.includes(value)) {
-        newSelectedFilters[filterQueryParam] = newSelectedFilters[filterQueryParam].filter((item) => item !== value);
-      } else {
-        newSelectedFilters[filterQueryParam] = [...(newSelectedFilters[filterQueryParam] || []), value];
-      }
+    if (newSelectedFilters[filterQueryParam]?.includes(value)) {
+      newSelectedFilters[filterQueryParam] = newSelectedFilters[filterQueryParam].filter((item) => item !== value);
+    } else {
+      newSelectedFilters[filterQueryParam] = [...(newSelectedFilters[filterQueryParam] || []), value];
+    }
 
-      const newParams = new URLSearchParams(params);
-      newParams.delete(filterQueryParam);
-
-      if (newSelectedFilters[filterQueryParam].length > 0) {
-        newParams.set(filterQueryParam, newSelectedFilters[filterQueryParam].join(","));
-      }
-
-      navigate(`${location.pathname}?${newParams.toString()}`, { state: { clearCache: true } });
-
-      return newSelectedFilters;
-    });
+    setSelectedFilters(newSelectedFilters);
   };
 
   return (
@@ -67,7 +60,7 @@ const FilterMenu = ({ fields }: IProps) => {
                 <label key={field.queryParam + value.value} className={styles.filterLabel}>
                   <input
                     type="checkbox"
-                    checked={selectedFilters[field.queryParam]?.includes(value.value)}
+                    checked={selectedFilters[field.queryParam]?.includes(value.value) || false}
                     className={styles.checkbox}
                     onChange={() => handleFilterChange(field.queryParam, value.value)}
                   />

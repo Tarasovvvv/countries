@@ -1,0 +1,19 @@
+@use "variables" as *;
+
+.switchButton {
+  display: flex;
+  align-items: center;
+  font-size: 1rem;
+  color: $primary-text-color;
+  background-color: $bg-color;
+
+  transition: 200ms;
+
+  &:hover {
+    color: $primary-text-color-hover;
+  }
+}
+
+.savedLanguage {
+  vertical-align: middle;
+}

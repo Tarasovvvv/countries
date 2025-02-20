@@ -1,10 +1,12 @@
 import { Outlet, useParams } from "react-router-dom";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import styles from "./Layout.module.scss";
-import { Link } from "react-router-dom";
+import { LanguageSelect } from "features";
+import { useTranslation } from "react-i18next";
 
 function Layout() {
   const { country } = useParams();
+  const { t } = useTranslation();
 
   return (
     <div className={styles.layout}>
@@ -16,10 +18,11 @@ function Layout() {
 
       <header>
         <h1>
-          <Link className={styles.homeLink} to="/">
-            Countries - всё о странах в одном месте
-          </Link>
+          <button className={styles.homeButton} onClick={() => (window.location.href = "/")}>
+            {`Countries - ${t("header")}`}
+          </button>
         </h1>
+        <LanguageSelect />
       </header>
 
       <main>

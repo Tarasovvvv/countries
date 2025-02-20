@@ -17,7 +17,7 @@ const useSearch = (queryFilters: IQueryFilter[]) => {
 
   const regions = getValues("region").filter((region) => region && region.trim() !== "");
 
-  const { data: regionData, isLoading: isLoading1 } = useGetCca3ByRegionQuery({ regions }, { skip: notInQuery("region") || regions.length === 0 });
+  const { data: regionData, isLoading: isLoading1 } = useGetCca3ByRegionQuery({ regions }, { skip: notInQuery("region") });
 
   filteredCca3 = filteredCca3.concat(regionData?.map((item) => item.cca3) || []);
 
@@ -36,13 +36,15 @@ const useSearch = (queryFilters: IQueryFilter[]) => {
     }
   }
 
-  if (finalCca3.length === 0 && ((searchedCca3?.length && searchedCca3.length > 0) || filteredCca3.length > 0)) {
-    finalCca3 = ["nothing"];
-  }
+  const { data, refetch, isLoading, error } = useGetAllCountriesQuery(
+    { cca3Codes: finalCca3.join(",") },
+    {
+      skip: isLoading1,
+      refetchOnMountOrArgChange: true,
+    }
+  );
 
-  const { data, isLoading, error } = useGetAllCountriesQuery({ cca3Codes: finalCca3.join(",") }, { skip: isLoading1 });
-
-  return { data, isLoading, error };
+  return { data, refetch, isLoading, error };
 };
 
 export default useSearch;
