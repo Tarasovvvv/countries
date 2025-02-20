@@ -43,7 +43,7 @@ function HomePage() {
       <div className={styles.filterWrapper}>
         <div className={styles.previewsWrapper}>
           <Loader isOpen={isLoading} />
-          <Errorer isOpen={error !== undefined} error={error} />
+          <Errorer isOpen={!!error} error={error} />
           <Suspense fallback={<Loader />}>{!isLoading && !error && finalData?.map((item, i) => <LazyCountryPreview key={i} data={item} />)}</Suspense>
         </div>
         <FilterMenu fields={filterFields} />

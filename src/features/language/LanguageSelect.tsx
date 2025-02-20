@@ -7,7 +7,7 @@ const LanguageSelect = () => {
   const { t, i18n } = useTranslation();
 
   const switchLanguage = () => {
-    changeLanguage(i18n.language === "en-EN" ? "ru-RU" : "en-ES");
+    changeLanguage(i18n.language === "en-US" ? "ru-RU" : "en-US");
   };
 
   return (

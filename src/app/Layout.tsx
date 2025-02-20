@@ -22,8 +22,9 @@ function Layout() {
             {`Countries - ${t("header")}`}
           </button>
         </h1>
-        <LanguageSelect />
       </header>
+
+      <LanguageSelect />
 
       <main>
         <Outlet />

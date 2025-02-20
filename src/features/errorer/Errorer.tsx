@@ -12,7 +12,16 @@ function Errorer({ isOpen, error }: IProps) {
 
   if (error && typeof error === "object") {
     if ("status" in error) {
-      message = error.status === 400 ? "Ничего не найдено" : "Другая ошибка";
+      switch (error.status) {
+        case 400:
+          message = "Ничего не найдено";
+          break;
+        case 404:
+          message = "Неверный запрос";
+          break;
+        default:
+          message = "Неизвестная ошибка";
+      }
     } else if ("message" in error) {
       message = error.message ?? "Ошибка без описания";
     }

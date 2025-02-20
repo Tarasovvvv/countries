@@ -1,0 +1,21 @@
+{
+  "map": "Страница на карте",
+  "noNeighbors": "Нет стран соседей",
+  "data": {
+    "area": "Столица",
+    "region": "Регионы",
+    "capital": "Столица",
+    "languages": "Языки",
+    "currencies": "Валюта",
+    "population": "Население",
+    "continents": "Континенты",
+    "timezones": "Часовые пояса",
+
+    "unitsOfMeasurement": {
+      "people": "чел.",
+      "kilometers": "км"
+    },
+
+    "undefined": "Нет"
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "language": {
+    "ru-RU": "Русский"
+  },
+  "header": {
+    "slogan": "все о странах в одном месте"
+  },
+  "main": {
+    "search": {
+      "placeholder": "Куда отправимся",
+      "button:": {
+        "text": "Поиск"
+      }
+    },
+    "sort": {
+      "legend": "Сортировать по",
+      "fileds": {
+        "population": "Населению"
+      }
+    },
+    "filter": {
+      "legend": "Фильтры",
+      "fields": {
+        "region": {
+          "asia": "Азия",
+          "africa": "Африка",
+          "europe": "Европа",
+          "summary": "Регион",
+          "oceania": "Океания",
+          "americas": "Америка",
+          "antarctic": "Антарктика"
+        }
+      }
+    }
+  },
+  "footer": {
+    "api": "Используемое"
+  }
+}

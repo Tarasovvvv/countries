@@ -19,8 +19,8 @@ function CountryPage() {
         <p className={styles.backTitle}>Назад</p>
       </div>
       <Loader isOpen={isLoading} />
-      <Errorer isOpen={error !== undefined} error={error && "data" in error ? `${countryData?.name} - ${error.data?.message}` : error?.message} />
-      {!isLoading && (
+      <Errorer isOpen={!!error} error={error} />
+      {!isLoading && !error && (
         <>
           <img className={styles.img} src={countryData?.flags.svg} alt={countryData?.flags.alt} loading="lazy" />
           <h2>
