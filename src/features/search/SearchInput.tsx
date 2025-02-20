@@ -3,20 +3,18 @@ import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import clsx from "clsx";
 import { useSuggestions } from "entities/country";
 import { useDebounce } from "shared/lib/hooks";
-import { Loader } from "features";
-import { ICountry } from "shared/types";
 import styles from "./SearchInput.module.scss";
 
 const SearchInput = () => {
+  const navigate = useNavigate();
+  const [params] = useSearchParams();
   const [text, setText] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
   const [isFocused, setIsFocused] = useState(false);
-  const debouncedText = useDebounce(text, 200);
-  const { suggestions, isLoading } = useSuggestions({ input: debouncedText });
-  const navigate = useNavigate();
-  const [params] = useSearchParams();
+  const debouncedText = useDebounce(text, 2000);
+  const { suggestions, getSuggestionsByText } = useSuggestions({ input: debouncedText });
 
-  const extractCca3 = (elements: (Omit<ICountry, "flags"> & { cca3: string })[] | undefined): string | null => {
+  const extractCca3 = (elements: typeof suggestions): string | null => {
     if (!elements) return null;
     const cca3Codes = elements?.map((item) => item.cca3);
 
@@ -25,14 +23,17 @@ const SearchInput = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    inputRef.current?.blur();
-    const cca3Codes = extractCca3(suggestions);
-    if (!cca3Codes || !cca3Codes.length) {
-      params.delete("search");
-    } else {
-      params.set("search", cca3Codes);
+    if (text) {
+      inputRef.current?.blur();
+      console.log(debouncedText === text);
+      const cca3Codes = extractCca3(debouncedText === text ? suggestions : getSuggestionsByText(text));
+      if (!cca3Codes || !cca3Codes.length) {
+        params.set("search", "no-countries");
+      } else {
+        params.set("search", cca3Codes);
+      }
+      navigate(`${location.pathname}?${params.toString()}`);
     }
-    navigate(`${location.pathname}?${params.toString()}`);
   };
 
   return (
@@ -53,7 +54,7 @@ const SearchInput = () => {
       <input
         ref={inputRef}
         className={clsx(styles.input, {
-          [styles.filled]: suggestions?.length && isFocused && text,
+          [styles.filled]: isFocused && suggestions?.length && text === debouncedText,
         })}
         type="text"
         value={text}
@@ -64,7 +65,6 @@ const SearchInput = () => {
       />
       <button
         type="submit"
-        disabled={!text}
         className={clsx(styles.submitButton, {
           [styles.focused]: text,
           [styles.blurred]: !text || !suggestions?.length,
@@ -72,11 +72,10 @@ const SearchInput = () => {
       >
         Поиск
       </button>
-      {isFocused && suggestions && suggestions.length > 0 && text && (
+      {isFocused && suggestions && suggestions.length > 0 && text && text === debouncedText && (
         <div className={styles.suggestionsWrapper}>
           <p className={styles.forward}>Бытрый переход</p>
           <div className={styles.suggestions}>
-            <Loader isOpen={isLoading} />
             <ul>
               {suggestions?.map((suggestion) => (
                 <li key={suggestion.name.common}>

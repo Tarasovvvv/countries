@@ -5,13 +5,22 @@ interface IProps {
 }
 
 const useSuggestions = ({ input }: IProps) => {
-  const { data: namesData, isLoading } = useGetSuggestionsQuery(undefined, { skip: input.trim() === "" });
-  const suggestions = namesData?.filter((item) => {
-    const re = new RegExp(input, "i");
-    return re.test(item.translations?.rus?.official);
-  });
+  const { data } = useGetSuggestionsQuery();
+  const suggestions =
+    data?.filter((item) => {
+      const re = new RegExp(input, "i");
+      return re.test(item.translations?.rus?.official);
+    }) || null;
 
-  return { suggestions, isLoading };
+  const getSuggestionsByText = (text: string) => {
+    return (
+      data?.filter((item) => {
+        const re = new RegExp(text, "i");
+        return re.test(item.translations?.rus?.official);
+      }) || null
+    );
+  };
+  return { suggestions, getSuggestionsByText };
 };
 
 export default useSuggestions;

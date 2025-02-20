@@ -118,6 +118,7 @@ summary {
   &::after {
     content: "⯆";
     color: $primary-text-color;
+    z-index: -1;
     transition: 300ms;
   }
 }

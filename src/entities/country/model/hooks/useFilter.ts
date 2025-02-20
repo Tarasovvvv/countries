@@ -18,10 +18,9 @@ const useFilter = (fields: IFilterParameter[]) => {
           switch (field.queryParam) {
             case "region":
               newValues = existingValues.join(",");
+              filtersQueryValues.push({ name: "region", values: newValues });
               break;
           }
-
-          filtersQueryValues.push({ name: "region", values: newValues });
         }
       }
     });

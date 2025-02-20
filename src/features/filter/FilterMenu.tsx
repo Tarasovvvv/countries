@@ -21,7 +21,7 @@ const FilterMenu = ({ fields }: IProps) => {
       })
     )
   );
-  const debouncedFilters = useDebounce(selectedFilters, 1200);
+  const debouncedFilters = useDebounce(selectedFilters, 200);
 
   useEffect(() => {
     Object.keys(debouncedFilters).forEach((filterQueryParam) => {
@@ -32,7 +32,6 @@ const FilterMenu = ({ fields }: IProps) => {
         params.delete(filterQueryParam);
       }
     });
-
     navigate(`${location.pathname}?${params.toString()}`);
   }, [debouncedFilters]);
 
