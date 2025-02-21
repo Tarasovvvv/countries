@@ -1,0 +1,26 @@
+{
+  "map": "Page on the map",
+  "back": "Back",
+
+  "data": {
+    "area": "Area",
+    "regions": "Regions",
+    "capital": "Capital",
+    "languages": "Languages",
+    "currencies": "Currency",
+    "population": "Population",
+    "continents": "Continents",
+    "timezones": "Time zones",
+
+    "unitsOfMeasurement": {
+      "people": "res.",
+      "kilometers": "km"
+    },
+
+    "neighbors": {
+      "yes": "Neighboring countries:",
+      "no": "No neighboring countries"
+    },
+    "undefined": "No"
+  }
+}
