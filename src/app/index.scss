@@ -1,4 +1,5 @@
 @use "variables" as *;
+@use "mixins" as *;
 
 * {
   box-sizing: border-box;
@@ -13,7 +14,8 @@
 }
 
 body {
-  min-height: 100vh;
+  min-height: 100%;
+  min-width: 100%;
 
   background-color: $bg-color;
 }
@@ -97,8 +99,15 @@ legend {
   text-align: left;
 }
 details {
+  width: 100%;
+
   &[open] summary::after {
     transform: rotate(90deg);
+  }
+
+  @include underLaptop {
+    width: 7em;
+    margin: 0 1em;
   }
 }
 
@@ -115,10 +124,20 @@ summary {
   justify-content: space-between;
   margin-bottom: 0.25em;
 
+  width: 100%;
+
   &::after {
     content: "⯆";
     color: $primary-text-color;
     z-index: -1;
     transition: 300ms;
+  }
+}
+
+fieldset {
+  @include underLaptop {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
   }
 }

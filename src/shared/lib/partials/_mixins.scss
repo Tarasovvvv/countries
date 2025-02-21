@@ -1,0 +1,17 @@
+@mixin underLaptop {
+  @media (width < 1000px) {
+    @content;
+  }
+}
+
+@mixin laptop {
+  @media (700px < width < 1000px) {
+    @content;
+  }
+}
+
+@mixin mobile {
+  @media (300px < width < 700px) {
+    @content;
+  }
+}

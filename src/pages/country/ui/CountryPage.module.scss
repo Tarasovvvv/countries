@@ -1,4 +1,5 @@
 @use "variables" as *;
+@use "mixins" as *;
 
 .mapLink {
   color: $primary-text-color;
@@ -21,7 +22,12 @@
 
   &.expandable {
     width: fit-content;
+
     max-width: 30em;
+  }
+
+  @media underLaptop {
+    min-width: 8em;
   }
 }
 
@@ -72,14 +78,23 @@
 }
 
 .img {
-  height: 20em;
+  max-height: 20em;
   border: 1px solid $border-color;
+
+  @include underLaptop {
+    max-width: 70%;
+  }
 }
 
 .separator {
   background-color: $border-color;
   width: 1px;
   height: auto;
+
+  @include underLaptop {
+    width: 50%;
+    height: 1px;
+  }
 }
 
 .borders {
@@ -98,6 +113,14 @@
   place-content: center;
   font-size: 1rem;
   transform: translate(0, -50%);
+
+  @media (900px < width <= 1130px) {
+    left: 3em;
+  }
+
+  @media (width < 900px) {
+    display: none;
+  }
 }
 
 .backButton {
@@ -133,4 +156,50 @@
   color: $primary-text-color;
 
   user-select: none;
+}
+
+.data {
+  display: flex;
+  width: 100%;
+  gap: 1em;
+
+  @include underLaptop {
+    width: 70%;
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+.borderData {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  @include underLaptop {
+    align-items: flex-start;
+  }
+}
+
+.borderWrapper {
+  display: flex;
+  width: 50%;
+  padding-right: 1em;
+  justify-content: flex-end;
+
+  @include underLaptop {
+    padding-right: 0;
+    justify-content: center;
+  }
+}
+
+.countryDataWrapper {
+  display: flex;
+  width: 50%;
+  padding-left: 1em;
+  justify-content: flex-start;
+
+  @include underLaptop {
+    padding-right: 0;
+    justify-content: center;
+  }
 }

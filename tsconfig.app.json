@@ -30,7 +30,8 @@
       "widgets/*": ["widgets/*"],
       "entities/*": ["entities/*"],
       "features/*": ["features/*"],
-      "variables": ["/src/shared/variables.scss"]
+      "mixins": ["/src/shared/lib/partials/_mixins.scss"],
+      "variables": ["/src/shared/lib/partials/_variables.scss"]
     }
   },
   "include": ["src"]

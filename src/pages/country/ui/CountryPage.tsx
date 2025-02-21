@@ -38,9 +38,9 @@ function CountryPage() {
             </svg>
             <span>{t("country:map")}</span>
           </Link>
-          <div style={{ display: "flex", width: "100%" }}>
-            <div style={{ display: "flex", width: "50%", paddingRight: "1em", justifyContent: "flex-end" }}>
-              <div className={styles.countryData} style={{ display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
+          <div className={styles.data}>
+            <div className={styles.borderWrapper}>
+              <div className={`${styles.countryData} ${styles.borderData}`}>
                 <div className={styles.borders}>{t(`country:data.neighbors.${bordersData ? "yes" : "no"}`)}</div>
                 {bordersData?.map((item) => (
                   <Link
@@ -72,7 +72,7 @@ function CountryPage() {
               </div>
             </div>
             <div className={styles.separator} />
-            <div style={{ display: "flex", width: "50%", paddingLeft: "1em", justifyContent: "flex-start" }}>
+            <div className={styles.countryDataWrapper}>
               <div className={`${styles.countryData} ${styles.expandable}`}>
                 <div className={styles.dataItem}>
                   <span className={styles.dataItemKey}>{`${t("country:data.capital")}:`}</span>

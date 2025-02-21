@@ -1,9 +1,8 @@
 import React, { Suspense } from "react";
 import { useSearch, useSort, useFilter } from "entities/country";
-import { Loader, Errorer, SearchInput, SortMenu, FilterMenu } from "features";
+import { Loader, Errorer, SearchInput, SortMenu, FilterMenu, LanguageSelect } from "features";
 import { ISortParameter, IFilterParameter } from "shared/types";
 import styles from "./HomePage.module.scss";
-import { getTranlsatedName } from "shared/lib/functions";
 
 const LazyCountryPreview = React.lazy(() => import("entities/country/ui/country-preview/CountryPreview"));
 
@@ -39,7 +38,11 @@ function HomePage() {
 
   return (
     <>
-      <SearchInput />
+      <div className={styles.searhWrapper}>
+        <div></div>
+        <SearchInput />
+        <LanguageSelect />
+      </div>
       <SortMenu fields={sortFields} />
       <div className={styles.filterWrapper}>
         <div className={styles.previewsWrapper}>

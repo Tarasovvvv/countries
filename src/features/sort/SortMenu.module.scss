@@ -1,7 +1,12 @@
 @use "variables" as *;
+@use "mixins" as *;
 
 .sortMenu {
   width: 40em;
+
+  @include underLaptop {
+    width: calc(70%);
+  }
 }
 
 .sortLabel {
@@ -11,7 +16,7 @@
 .submitButton {
   display: flex;
   gap: 0.1em;
-  align-items: center;
+  align-items: left;
   font-size: 1rem;
   font-weight: 400;
   color: $primary-text-color;
@@ -20,4 +25,8 @@
   &.selected {
     font-weight: 600;
   }
+}
+
+.sortFieldset {
+  justify-content: left;
 }

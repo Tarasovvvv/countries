@@ -1,4 +1,5 @@
 @use "variables" as *;
+@use "mixins" as *;
 
 .filterMenu {
   display: flex;
@@ -13,6 +14,11 @@
   max-height: fit-content;
   border: 1px solid $border-color;
   border-radius: 1em;
+
+  @include underLaptop {
+    width: 70%;
+    margin: 0;
+  }
 }
 
 .filtersWrapper {

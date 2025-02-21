@@ -11,7 +11,8 @@ export default defineConfig({
       widgets: "/src/widgets",
       entities: "/src/entities",
       features: "/src/features",
-      variables: "/src/shared/variables.scss",
+      mixins: "/src/shared/lib/partials/_mixins.scss",
+      variables: "/src/shared/lib/partials/_variables.scss",
     },
   },
 });

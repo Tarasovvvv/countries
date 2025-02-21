@@ -30,3 +30,9 @@
     color: $primary-text-color;
   }
 }
+
+.slogan {
+  @media (width <= 900px) {
+    display: none;
+  }
+}

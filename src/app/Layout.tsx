@@ -1,7 +1,6 @@
 import { Outlet, useParams } from "react-router-dom";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import styles from "./Layout.module.scss";
-import { LanguageSelect } from "features";
 import { useTranslation } from "react-i18next";
 
 function Layout() {
@@ -19,12 +18,11 @@ function Layout() {
       <header>
         <h1>
           <button className={styles.homeButton} onClick={() => (window.location.href = "/")}>
-            {`Countries - ${t("header.slogan")}`}
+            Countries
+            <span className={styles.slogan}>{` - ${t("header.slogan")}`}</span>
           </button>
         </h1>
       </header>
-
-      <LanguageSelect />
 
       <main>
         <Outlet />
