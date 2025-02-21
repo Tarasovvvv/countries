@@ -1,0 +1,1 @@
+import{u as a,g as e,j as n,L as c}from"./index-CzQtjrlv.js";const m="_country_smmro_1",i="_img_smmro_19",t={country:m,img:i};function l({data:s}){const{i18n:o}=a(),r=e(s,o.language);return n.jsxs(c,{to:`${s.cca3}`,className:t.country,children:[n.jsx("img",{src:s.flags.svg||s.flags.png,loading:"lazy",className:t.img}),n.jsx("p",{children:r})]})}export{l as default};
