@@ -26,7 +26,7 @@ function CountryPage() {
       {!isLoading && !error && countryData && (
         <>
           <img className={styles.img} src={countryData.flags.svg} alt={countryData.flags.alt} loading="lazy" />
-          <h2>
+          <h2 className={styles.h2}>
             <span className={styles.cca3}>{countryData.cca3}</span>
             {getTranlsatedName({ name: countryData.name, translations: countryData.translations }, i18n.language)}
           </h2>
@@ -43,12 +43,7 @@ function CountryPage() {
               <div className={`${styles.countryData} ${styles.borderData}`}>
                 <div className={styles.borders}>{t(`country:data.neighbors.${bordersData ? "yes" : "no"}`)}</div>
                 {bordersData?.map((item) => (
-                  <Link
-                    to={`/${item.cca3}`}
-                    key={`${item.cca3}`}
-                    className={`${styles.dataItem} ${styles.dataItemHoverable}`}
-                    style={{ alignItems: "center", maxWidth: "20em" }}
-                  >
+                  <Link to={`/${item.cca3}`} key={`${item.cca3}`} className={`${styles.dataItem} ${styles.dataItemHoverable}`}>
                     <svg
                       key={`svg${item.cca3}`}
                       style={{ marginRight: "0.4em", minWidth: "1em" }}

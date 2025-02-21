@@ -17,10 +17,7 @@ const SearchInput = () => {
   const { suggestions, getSuggestionsByText } = useSuggestions({ input: debouncedText });
 
   const extractCca3 = (elements: typeof suggestions): string | null => {
-    if (!elements) return null;
-    const cca3Codes = elements?.map((item) => item.cca3);
-
-    return cca3Codes.join(",");
+    return elements?.map((item) => item.cca3).join(",") || null;
   };
 
   const handleSubmit = (e: React.FormEvent) => {

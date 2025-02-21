@@ -8,6 +8,8 @@
 
   color: $primary-text-color;
 
+  justify-self: left;
+
   padding: 0.5em 1em;
   margin: 1em;
   width: 10em;
@@ -17,7 +19,8 @@
 
   @include underLaptop {
     width: 70%;
-    margin: 0;
+    max-margin: 0;
+    width: fit-content;
   }
 }
 
