@@ -1,0 +1,143 @@
+@use "variables" as *;
+@use "mixins" as *;
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  color-scheme: light dark;
+}
+
+body {
+  min-height: 100%;
+  min-width: 100%;
+
+  background-color: $bg-color;
+}
+
+header {
+  display: flex;
+  gap: 1em;
+  align-items: center;
+  justify-content: center;
+
+  padding: 1.5em;
+
+  box-shadow: 0 0 0.3em 0.3em rgb(221, 221, 221);
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  justify-content: flex-start;
+  align-items: center;
+  flex-grow: 1;
+}
+
+footer {
+  display: flex;
+  place-items: center;
+  justify-content: center;
+  background-color: $footer-bg-color;
+
+  margin-top: 2em;
+  z-index: 0;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+h1,
+h2 {
+  color: $primary-text-color;
+}
+h3 {
+  font-size: 1.2rem;
+  color: $footer-primary-text-color;
+}
+
+button {
+  font-weight: 500;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+a {
+  text-decoration: inherit;
+  color: $secondary-text-color;
+  transition: 200ms;
+
+  &:hover {
+    color: $link-hover-color;
+  }
+}
+
+p {
+  color: $primary-text-color;
+  font-size: 1.5rem;
+  font-weight: 500;
+  text-align: center;
+}
+
+span {
+  font-size: inherit;
+}
+
+legend {
+  cursor: default;
+  color: $primary-text-color;
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-align: left;
+}
+details {
+  width: 100%;
+
+  &[open] summary::after {
+    transform: rotate(90deg);
+  }
+
+  @include underLaptop {
+    width: 7em;
+    margin: 0 1em;
+  }
+}
+
+summary,
+label {
+  user-select: none;
+}
+
+summary {
+  cursor: pointer;
+  font-weight: 600;
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.25em;
+
+  width: 100%;
+
+  &::after {
+    content: "⯆";
+    color: $primary-text-color;
+    z-index: -1;
+    transition: 300ms;
+  }
+}
+
+fieldset {
+  @include underLaptop {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+  }
+}

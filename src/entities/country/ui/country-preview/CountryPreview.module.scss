@@ -1,0 +1,25 @@
+@use "variables" as *;
+@use "mixins" as *;
+
+.country {
+  padding: 1em;
+  width: 30em;
+  border: 1px solid transparent;
+  border-radius: 1em;
+  transition: 200ms;
+  align-items: center;
+
+  &:hover {
+    border: 1px solid $border-color;
+    box-shadow: 0 0 0.8em 0.3em $shadow-color;
+  }
+
+  @include underLaptop {
+    width: 100%;
+  }
+}
+
+.img {
+  width: 100%;
+  border: 1px solid $border-color;
+}

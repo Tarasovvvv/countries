@@ -1,0 +1,222 @@
+@use "variables" as *;
+@use "mixins" as *;
+
+.mapLink {
+  color: $primary-text-color;
+  font-weight: 500;
+
+  display: flex;
+  gap: 0.5em;
+  align-items: center;
+
+  user-select: none;
+
+  &:hover {
+    color: $primary-text-color-hover;
+  }
+}
+
+.countryData {
+  justify-items: left;
+  min-width: 18em;
+
+  &.expandable {
+    width: fit-content;
+    max-width: 30em;
+  }
+
+  @include underLaptop {
+    min-width: 8em;
+    width: 80%;
+    max-width: 80% !important;
+  }
+}
+
+.dataItem {
+  display: flex;
+  text-align: left;
+  font-size: 1.2rem;
+  font-weight: 400;
+  color: $primary-text-color;
+}
+
+.dataItemHoverable {
+  align-items: center;
+  max-width: 20em;
+
+  &:hover {
+    color: $primary-text-color-hover;
+  }
+
+  @include underLaptop {
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
+.dataItemKey {
+  font-family: inherit;
+  font-weight: 500;
+  margin-right: 0.4em;
+}
+
+.currencySymbol {
+  display: flex;
+  align-items: center;
+
+  font-size: 1.1rem;
+  font-weight: 400;
+
+  background-color: rgb(240, 240, 240);
+
+  width: fit-content;
+  padding: 0 0.2em;
+  border-radius: 0.2em;
+  margin: 0 0.2em;
+}
+
+.splittable {
+  &:not(:last-child)::after {
+    content: ",";
+  }
+}
+
+.cca3 {
+  color: $secondary-text-color;
+  margin-right: 0.5em;
+}
+
+.img {
+  max-height: 20em;
+  border: 1px solid $border-color;
+
+  @include underLaptop {
+    max-width: 70%;
+  }
+}
+
+.separator {
+  background-color: $border-color;
+  width: 1px;
+  height: auto;
+
+  @include underLaptop {
+    width: 50%;
+    height: 1px;
+  }
+}
+
+.borders {
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: $primary-text-color;
+}
+
+.back {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 50%;
+  left: 6em;
+  transition: 200ms;
+  place-content: center;
+  font-size: 1rem;
+  transform: translate(0, -50%);
+
+  @media (900px < width <= 1130px) {
+    left: 3em;
+  }
+
+  @media (width < 900px) {
+    display: none;
+  }
+}
+
+.backButton {
+  position: relative;
+  font-size: inherit;
+  color: $primary-text-color;
+  background-color: $bg-color;
+
+  font-size: 1rem;
+  place-content: center;
+  padding: 1.5em;
+  border: 1px solid $border-color;
+  border-radius: 100%;
+
+  user-select: none;
+
+  &:hover {
+    color: $primary-text-color;
+    background-color: $bg-color-hover;
+  }
+}
+
+.backImg {
+  position: absolute;
+  width: 1.8em;
+  height: 1.8em;
+  transform: translate(-50%, -50%);
+}
+
+.backTitle {
+  font-size: 1rem;
+  margin: 0.5em 0;
+  color: $primary-text-color;
+
+  user-select: none;
+}
+
+.data {
+  display: flex;
+  width: 100%;
+  gap: 1em;
+
+  @include underLaptop {
+    width: 80%;
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+.borderData {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  @include underLaptop {
+    align-items: flex-start;
+  }
+}
+
+.borderWrapper {
+  display: flex;
+  width: 50%;
+  padding-right: 1em;
+  justify-content: flex-end;
+
+  @include underLaptop {
+    padding-right: 0;
+
+    width: 100%;
+    max-width: 100%;
+    justify-content: center;
+  }
+}
+
+.countryDataWrapper {
+  display: flex;
+  width: 50%;
+  padding-left: 1em;
+  justify-content: flex-start;
+
+  @include underLaptop {
+    width: 100%;
+    padding-left: 0;
+    justify-content: center;
+  }
+}
+
+.h2 {
+  text-align: center;
+}

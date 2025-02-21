@@ -1,0 +1,39 @@
+@use "mixins" as *;
+
+.filterWrapper {
+  display: flex;
+  gap: 1em;
+  align-items: flex-start;
+
+  @include underLaptop {
+    flex-direction: column-reverse;
+    align-items: center;
+    width: 100%;
+  }
+}
+
+.previewsWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  min-width: 30em;
+  min-height: 19em;
+  align-items: center;
+
+  @include underLaptop {
+    justify-content: flex-end;
+    flex-direction: column-reverse;
+    min-width: 5em;
+    width: calc(70% + 2em);
+  }
+}
+
+.searhWrapper {
+  display: grid;
+  width: 100%;
+  grid-template-columns: 1fr 40em 1fr;
+
+  @include underLaptop {
+    grid-template-columns: 1fr calc(70% - 2em) 2em 1fr;
+  }
+}

@@ -1,0 +1,47 @@
+@use "variables" as *;
+@use "mixins" as *;
+
+.filterMenu {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+
+  color: $primary-text-color;
+
+  justify-self: left;
+
+  padding: 0.5em 1em;
+  margin: 1em;
+  width: 10em;
+  max-height: fit-content;
+  border: 1px solid $border-color;
+  border-radius: 1em;
+
+  @include underLaptop {
+    width: 70%;
+    max-margin: 0;
+    width: fit-content;
+  }
+}
+
+.filtersWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2em;
+  width: 100%;
+}
+
+.checkbox {
+  cursor: pointer;
+}
+
+.legend {
+  text-align: center;
+  margin-bottom: 0.5em;
+}
+
+.filterLabel {
+  cursor: pointer;
+  display: flex;
+  gap: 0.5em;
+}

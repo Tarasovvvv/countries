@@ -1,0 +1,32 @@
+@use "variables" as *;
+@use "mixins" as *;
+
+.sortMenu {
+  width: 40em;
+
+  @include underLaptop {
+    width: calc(70%);
+  }
+}
+
+.sortLabel {
+  margin: 0.5em 0;
+}
+
+.submitButton {
+  display: flex;
+  gap: 0.1em;
+  align-items: left;
+  font-size: 1rem;
+  font-weight: 400;
+  color: $primary-text-color;
+  background-color: inherit;
+
+  &.selected {
+    font-weight: 600;
+  }
+}
+
+.sortFieldset {
+  justify-content: left;
+}
