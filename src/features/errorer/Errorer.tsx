@@ -1,6 +1,7 @@
 import { SerializedError } from "@reduxjs/toolkit";
 import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 import styles from "./Errorer.module.scss";
+import i18next from "i18next";
 
 interface IProps {
   isOpen: boolean;
@@ -8,29 +9,31 @@ interface IProps {
 }
 
 function Errorer({ isOpen, error }: IProps) {
-  let message = "Неизвестная ошибка";
-
-  if (error && typeof error === "object") {
-    if ("status" in error) {
-      switch (error.status) {
-        case 400:
-          message = "Ничего не найдено";
-          break;
-        case 404:
-          message = "Неверный запрос";
-          break;
-        default:
-          message = "Неизвестная ошибка";
+  const { t } = i18next;
+  let errorMessage;
+  try {
+    if (error && typeof error === "object") {
+      if ("status" in error) {
+        switch (error.status) {
+          case 400:
+          case 404:
+            throw t("errors:nothingFound");
+            break;
+          default:
+            throw t("errors:unknownError");
+        }
+      } else if ("message" in error) {
+        throw t("errors:noDescription");
       }
-    } else if ("message" in error) {
-      message = error.message ?? "Ошибка без описания";
     }
+  } catch (e) {
+    errorMessage = e;
   }
 
   return (
     isOpen && (
       <p className={styles.errorMessage}>
-        {message}
+        {errorMessage as string}
         <br />
         🤔
       </p>

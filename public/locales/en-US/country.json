@@ -1,9 +1,10 @@
 {
   "map": "Page on the map",
-  "noNeighbors": "No neighboring countries",
+  "back": "Back",
+
   "data": {
     "area": "Area",
-    "region": "Regions",
+    "regions": "Regions",
     "capital": "Capital",
     "languages": "Languages",
     "currencies": "Currency",
@@ -12,10 +13,14 @@
     "timezones": "Time zones",
 
     "unitsOfMeasurement": {
-      "people": "people",
+      "people": "res.",
       "kilometers": "km"
     },
 
+    "neighbors": {
+      "yes": "Neighboring countries:",
+      "no": "No neighboring countries"
+    },
     "undefined": "No"
   }
 }

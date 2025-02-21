@@ -7,14 +7,14 @@
   },
   "main": {
     "search": {
-      "placeholder": "Куда отправимся",
-      "button:": {
+      "placeholder": "Куда отправимся?",
+      "button": {
         "text": "Поиск"
       }
     },
     "sort": {
       "legend": "Сортировать по",
-      "fileds": {
+      "fields": {
         "population": "Населению"
       }
     },
@@ -22,13 +22,16 @@
       "legend": "Фильтры",
       "fields": {
         "region": {
-          "asia": "Азия",
-          "africa": "Африка",
-          "europe": "Европа",
-          "summary": "Регион",
-          "oceania": "Океания",
-          "americas": "Америка",
-          "antarctic": "Антарктика"
+          "name": "Регион",
+          "values": {
+            "asia": "Азия",
+            "africa": "Африка",
+            "europe": "Европа",
+            "summary": "Регион",
+            "oceania": "Океания",
+            "americas": "Америка",
+            "antarctic": "Антарктика"
+          }
         }
       }
     }

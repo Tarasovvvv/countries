@@ -10,7 +10,7 @@ i18next
   .init({
     lng: localStorage.getItem("i18nextLng") || "ru-RU",
     ns: ["home", "country", "errors"],
-    fallbackLng: "ru-RU",
+    fallbackLng: "en-US",
     backend: {
       loadPath: "/locales/{{lng}}/{{ns}}.json",
     },

@@ -4,14 +4,16 @@ import clsx from "clsx";
 import { useSuggestions } from "entities/country";
 import { useDebounce } from "shared/lib/hooks";
 import styles from "./SearchInput.module.scss";
+import { useTranslation } from "react-i18next";
 
 const SearchInput = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const [params] = useSearchParams();
   const [text, setText] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
   const [isFocused, setIsFocused] = useState(false);
-  const debouncedText = useDebounce(text, 2000);
+  const debouncedText = useDebounce(text, 200);
   const { suggestions, getSuggestionsByText } = useSuggestions({ input: debouncedText });
 
   const extractCca3 = (elements: typeof suggestions): string | null => {
@@ -25,7 +27,6 @@ const SearchInput = () => {
     e.preventDefault();
     if (text) {
       inputRef.current?.blur();
-      console.log(debouncedText === text);
       const cca3Codes = extractCca3(debouncedText === text ? suggestions : getSuggestionsByText(text));
       if (!cca3Codes || !cca3Codes.length) {
         params.set("search", "no-countries");
@@ -54,14 +55,14 @@ const SearchInput = () => {
       <input
         ref={inputRef}
         className={clsx(styles.input, {
-          [styles.filled]: isFocused && suggestions?.length && text === debouncedText,
+          [styles.filled]: isFocused && text && suggestions?.length && text === debouncedText,
         })}
         type="text"
         value={text}
         onChange={(e) => setText(e.target.value)}
         onFocus={() => setIsFocused(true)}
         onBlur={() => setIsFocused(false)}
-        placeholder="Куда отправимся?"
+        placeholder={t("main.search.placeholder")}
       />
       <button
         type="submit"
@@ -70,7 +71,7 @@ const SearchInput = () => {
           [styles.blurred]: !text || !suggestions?.length,
         })}
       >
-        Поиск
+        {t("main.search.button.text")}
       </button>
       {isFocused && suggestions && suggestions.length > 0 && text && text === debouncedText && (
         <div className={styles.suggestionsWrapper}>
@@ -80,7 +81,7 @@ const SearchInput = () => {
               {suggestions?.map((suggestion) => (
                 <li key={suggestion.name.common}>
                   <div className={styles.aWrapper}>
-                    <Link to={`/${suggestion.name.common.replace(" ", "_")}`} className={styles.a} onMouseDown={(e) => e.preventDefault()}>
+                    <Link to={`/${suggestion.cca3}`} className={styles.a} onMouseDown={(e) => e.preventDefault()}>
                       {suggestion.translations.rus.official}
                     </Link>
                   </div>

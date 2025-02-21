@@ -3,6 +3,7 @@ import { IFilterParameter } from "shared/types";
 import { useEffect, useState } from "react";
 import styles from "./FilterMenu.module.scss";
 import { useDebounce } from "shared/lib/hooks";
+import { useTranslation } from "react-i18next";
 
 interface IProps {
   fields: IFilterParameter[] | undefined;
@@ -11,6 +12,7 @@ interface IProps {
 const FilterMenu = ({ fields }: IProps) => {
   if (!Array.isArray(fields) || fields.length === 0) return null;
 
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const location = useLocation();
   const [params] = useSearchParams();
@@ -50,20 +52,20 @@ const FilterMenu = ({ fields }: IProps) => {
   return (
     <div className={styles.filterMenu}>
       <fieldset>
-        <legend className={styles.legend}>Фильтры</legend>
+        <legend className={styles.legend}>{t("main.filter.legend")}</legend>
         {fields.map((field) => (
           <details key={field.queryParam} open>
-            <summary>{field.name}</summary>
+            <summary>{t(`main.filter.fields.${field.queryParam}.name`)}</summary>
             <div className={styles.filtersWrapper}>
               {field.paramValues.map((value) => (
                 <label key={field.queryParam + value.value} className={styles.filterLabel}>
                   <input
                     type="checkbox"
-                    checked={selectedFilters[field.queryParam]?.includes(value.value) || false}
                     className={styles.checkbox}
                     onChange={() => handleFilterChange(field.queryParam, value.value)}
+                    checked={selectedFilters[field.queryParam]?.includes(value.value) || false}
                   />
-                  {value.name}
+                  {t(`main.filter.fields.${field.queryParam}.values.${value.value}`)}
                 </label>
               ))}
             </div>

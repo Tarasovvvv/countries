@@ -19,7 +19,7 @@ function Layout() {
       <header>
         <h1>
           <button className={styles.homeButton} onClick={() => (window.location.href = "/")}>
-            {`Countries - ${t("header")}`}
+            {`Countries - ${t("header.slogan")}`}
           </button>
         </h1>
       </header>
@@ -37,7 +37,7 @@ function Layout() {
           </a>
         </div>
         <div className={styles.footerItem}>
-          <h3>Используемое API</h3>
+          <h3>{`${t(`footer.api`)} API`}</h3>
           <ul>
             <li>
               <a href="https://restcountries.com" target="_blank">

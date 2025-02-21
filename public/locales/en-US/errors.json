@@ -1,5 +1,5 @@
 {
-  "400": "Nothing found",
+  "nothingFound": "Nothing found",
   "unknownError": "Unknown error",
   "noDescription": "Error without description"
 }

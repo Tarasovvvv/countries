@@ -9,6 +9,7 @@ export default interface ICountry {
   };
   translations: {
     rus: {
+      common: string;
       official: string;
     };
   };

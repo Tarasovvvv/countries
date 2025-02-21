@@ -1,4 +1,5 @@
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { useEffect } from "react";
 import clsx from "clsx";
 import { ISortParameter } from "shared/types";
@@ -11,6 +12,7 @@ interface IProps {
 const SortMenu = ({ fields }: IProps) => {
   if (!Array.isArray(fields) || fields.length === 0) return null;
 
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const location = useLocation();
   const [params] = useSearchParams();
@@ -44,7 +46,7 @@ const SortMenu = ({ fields }: IProps) => {
   return (
     <div className={styles.sortMenu}>
       <fieldset className={styles.sortFieldset}>
-        <legend className={styles.sortLabel}>Сортировать по</legend>
+        <legend className={styles.sortLabel}>{t("main.sort.legend")}</legend>
         {fields &&
           fields.map((field, i) => (
             <button
@@ -54,7 +56,7 @@ const SortMenu = ({ fields }: IProps) => {
                 [styles.selected]: field.queryParam === fields[i].queryParam,
               })}
             >
-              {field.name}
+              {t(`main.sort.fields.${field.queryParam}`)}
               {field.queryParam === fields[i].queryParam &&
                 (field.order === "asc" ? (
                   field.isLexical ? (

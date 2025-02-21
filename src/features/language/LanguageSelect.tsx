@@ -1,18 +1,21 @@
 import { useTranslation } from "react-i18next";
-import "app/i18next";
 import styles from "./LanguageSelect.module.scss";
-import { changeLanguage } from "i18next";
+import i18next, { changeLanguage } from "i18next";
 
 const LanguageSelect = () => {
-  const { t, i18n } = useTranslation();
+  const { language, options } = i18next;
+  const { t } = useTranslation();
+
+  const languageKey = `home:language.${language}`;
+  const fallbackKey = `home:language.${options.fallbackLng?.toString()}`;
 
   const switchLanguage = () => {
-    changeLanguage(i18n.language === "en-US" ? "ru-RU" : "en-US");
+    changeLanguage(language === "en-US" ? "ru-RU" : "en-US");
   };
 
   return (
     <button onClick={switchLanguage} className={styles.switchButton}>
-      <span className={styles.savedLanguage}>{t(`language.${i18n.language}`)}</span>
+      <span className={styles.savedLanguage}>{t(languageKey, { defaultValue: t(fallbackKey) })}</span>
       <svg width="2em" height="2em" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <circle cx="12" cy="12" r="9" stroke="currentColor" strokeLinejoin="round" />
         <path d="M12 3C12 3 8.5 6 8.5 12C8.5 18 12 21 12 21" stroke="currentColor" strokeLinejoin="round" />

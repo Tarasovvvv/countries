@@ -3,6 +3,7 @@ import { useSearch, useSort, useFilter } from "entities/country";
 import { Loader, Errorer, SearchInput, SortMenu, FilterMenu } from "features";
 import { ISortParameter, IFilterParameter } from "shared/types";
 import styles from "./HomePage.module.scss";
+import { getTranlsatedName } from "shared/lib/functions";
 
 const LazyCountryPreview = React.lazy(() => import("entities/country/ui/country-preview/CountryPreview"));
 
